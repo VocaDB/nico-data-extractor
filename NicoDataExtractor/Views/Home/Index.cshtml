@@ -1,0 +1,24 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Nico Data Extractor";
+}
+
+<h1 class="display-4">Nico Data Extractor</h1>
+
+<form class="form-horizontal">
+    <input type="text" required asp-for="@Model.NicoUrl" />
+    <button type="submit">Get</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Error)) {
+    <br />
+    <div class="alert alert-danger">
+        @Model.Error
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.Result)) {
+    <h2>Raw result</h2>
+    <pre>@Model.Result</pre>
+}
+

@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/NicoDataExtractor/bin/Debug/netcoreapp2.2
+/NicoDataExtractor/obj
+*.user
