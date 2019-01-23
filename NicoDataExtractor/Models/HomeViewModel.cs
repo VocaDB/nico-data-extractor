@@ -8,5 +8,6 @@ namespace NicoDataExtractor.Models {
         public string NicoUrl { get; set; }
         public string Error { get; set; }
         public string Result { get; set; }
+        public NicoResponse NicoResponse { get; set; }
     }
 }

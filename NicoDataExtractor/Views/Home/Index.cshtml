@@ -6,7 +6,7 @@
 <h1 class="display-4">Nico Data Extractor</h1>
 
 <form class="form-horizontal">
-    <input type="text" required asp-for="@Model.NicoUrl" />
+    <input type="text" required asp-for="@Model.NicoUrl" class="col-sm-4" placeholder="https://www.nicovideo.jp/watch/sm393939" />
     <button type="submit">Get</button>
 </form>
 
@@ -17,7 +17,60 @@
     </div>
 }
 
+@if (Model.NicoResponse?.Thumb != null) {
+    var thumb = Model.NicoResponse.Thumb;
+    <br />
+    <h2>Video data</h2>
+    <table>
+        <tr>
+            <td style="width: 100px">Title</td>
+            <td>@thumb.Title</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>@thumb.Description</td>
+        </tr>
+        <tr>
+            <td>Thumbnail</td>
+            <td><img src="@thumb.Thumbnail_Url"/></td>
+        </tr>
+        <tr>
+            <td>Upload date</td>
+            <td>@thumb.First_Retrieve</td>
+        </tr>
+        <tr>
+            <td>Length</td>
+            <td>@thumb.Length</td>
+        </tr>
+        <tr>
+            <td>User</td>
+            <td>
+                <div class="media">
+                    <img src="@thumb.User_Icon_Url"/>
+                    <div class="media-body">
+                        <a href="https://www.nicovideo.jp/user/@thumb.User_Id">
+                            @thumb.User_Nickname<br />
+                            User ID @thumb.User_Id
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Tags</td>
+            <td>
+                <ul>
+                    @foreach (var tag in thumb.Tags) {
+                        <li><a href="https://www.nicovideo.jp/tag/@Html.UrlEncoder.Encode(tag)">@tag</a></li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+
 @if (!string.IsNullOrEmpty(Model.Result)) {
+    <br />
     <h2>Raw result</h2>
     <pre>@Model.Result</pre>
 }

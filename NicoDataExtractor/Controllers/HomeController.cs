@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using NicoDataExtractor.Models;
 
@@ -26,8 +25,15 @@ namespace NicoDataExtractor.Controllers {
 
             var nicoId = match.Groups[1].Value;
 
-            var result = await new HttpClient().GetStringAsync("https://ext.nicovideo.jp/api/getthumbinfo/" + nicoId);
-            return View(new HomeViewModel { NicoUrl = nicoUrl, Result = result });
+            var stringResult = await new HttpClient().GetStringAsync("https://ext.nicovideo.jp/api/getthumbinfo/" + nicoId);
+
+            var serializer = new XmlSerializer(typeof(NicoResponse));
+            NicoResponse parsed;
+            using (var reader = new StringReader(stringResult)) {
+                parsed = (NicoResponse)serializer.Deserialize(reader);
+            }
+
+            return View(new HomeViewModel { NicoUrl = nicoUrl, Result = stringResult, NicoResponse = parsed });
 
         }
 
