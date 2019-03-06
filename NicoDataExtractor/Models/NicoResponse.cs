@@ -46,7 +46,7 @@ namespace NicoDataExtractor.Models {
 
         [XmlArray("tags")]
         [XmlArrayItem("tag")]
-        public string[] Tags { get; set; }
+        public Tag[] Tags { get; set; }
 
         [XmlElement("thumbnail_url")]
         public string Thumbnail_Url { get; set; }
@@ -66,6 +66,15 @@ namespace NicoDataExtractor.Models {
         [XmlElement("video_id")]
         public string Video_Id { get; set; }
 
+    }
+
+    public class Tag
+    {
+        [XmlAttribute("lock")]
+        public bool Lock { get; set; }
+
+        [XmlText]
+        public string Name { get; set; }
     }
 
 }
