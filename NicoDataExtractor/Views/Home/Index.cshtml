@@ -61,7 +61,13 @@
             <td>
                 <ul>
                     @foreach (var tag in thumb.Tags) {
-                        <li><a href="https://www.nicovideo.jp/tag/@Html.UrlEncoder.Encode(tag)">@tag</a></li>
+                        <li>
+                            <a href="https://www.nicovideo.jp/tag/@Html.UrlEncoder.Encode(tag.Name)">@tag.Name</a>
+                            @if (tag.Lock)
+                            {
+                                <img src="@Url.Content("~/css/lock.png")" alt="lock" title="Locked tag" />
+                            }
+                        </li>
                     }
                 </ul>
             </td>
