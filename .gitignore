@@ -7,3 +7,4 @@
 /NicoDataExtractor/bin/Release/
 /NicoDataExtractor/obj
 *.user
+/NicoDataExtractor/Properties/PublishProfiles/FolderProfile.pubxml

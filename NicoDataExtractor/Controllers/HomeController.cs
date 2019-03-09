@@ -5,12 +5,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using NicoApi;
 using NicoDataExtractor.Models;
 
 namespace NicoDataExtractor.Controllers {
     public class HomeController : Controller {
 
-        readonly Regex nicoRegex = new Regex(@"^https?://www\.nicovideo\.jp/watch/((?:sm|nm)\d+)");
+        private static readonly HttpClient client = new HttpClient();
+        private readonly Regex nicoRegex = new Regex(@"^https?://www\.nicovideo\.jp/watch/((?:sm|nm)\d+)");
 
         public async Task<IActionResult> Index(string nicoUrl = null) {
 
@@ -24,8 +26,7 @@ namespace NicoDataExtractor.Controllers {
             }
 
             var nicoId = match.Groups[1].Value;
-
-            var stringResult = await new HttpClient().GetStringAsync("https://ext.nicovideo.jp/api/getthumbinfo/" + nicoId);
+            var stringResult = await client.GetStringAsync("https://ext.nicovideo.jp/api/getthumbinfo/" + nicoId);
 
             var serializer = new XmlSerializer(typeof(NicoResponse));
             NicoResponse parsed;
