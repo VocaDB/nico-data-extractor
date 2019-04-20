@@ -5,9 +5,9 @@
 
 <h1 class="display-4">Nico Data Extractor</h1>
 
-<form class="form-horizontal">
-    <input type="text" required asp-for="@Model.NicoUrl" class="col-sm-4" placeholder="https://www.nicovideo.jp/watch/sm393939" />
-    <button type="submit">Get</button>
+<form class="form-inline">
+    <input type="text" required asp-for="@Model.NicoUrl" class="col-sm-4 mr-sm-1 form-control" placeholder="https://www.nicovideo.jp/watch/sm393939"/>
+    <button type="submit" class="btn btn-primary">Get</button>
 </form>
 
 @if (!string.IsNullOrEmpty(Model.Error)) {
