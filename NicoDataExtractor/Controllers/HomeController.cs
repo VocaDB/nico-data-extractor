@@ -13,7 +13,7 @@ namespace NicoDataExtractor.Controllers
 	public class HomeController : Controller
 	{
 		private static readonly HttpClient client = new HttpClient();
-		private readonly Regex nicoRegex = new Regex(@"^https?://www\.nicovideo\.jp/watch/((?:sm|nm)\d+)");
+		private readonly Regex nicoRegex = new Regex(@"^https?://www\.nicovideo\.jp/watch/((?:sm|nm|so)\d+)");
 
 		public async Task<IActionResult> Index(string nicoUrl = null)
 		{
