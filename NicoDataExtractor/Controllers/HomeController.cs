@@ -12,8 +12,15 @@ namespace NicoDataExtractor.Controllers
 {
 	public class HomeController : Controller
 	{
-		private static readonly HttpClient client = new HttpClient();
+		private static readonly HttpClient client = initHttpClient();
 		private readonly Regex nicoRegex = new Regex(@"^https?://www\.nicovideo\.jp/watch/(\w+)");
+
+		private static HttpClient initHttpClient()
+		{
+			var clientTemp = new HttpClient();
+			clientTemp.DefaultRequestHeaders.Add("User-Agent", "NicoDataExtractor");
+			return clientTemp;
+		}
 
 		public async Task<IActionResult> Index(string nicoUrl = null)
 		{
